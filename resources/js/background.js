@@ -1,0 +1,1 @@
+nagsalot.background.init();

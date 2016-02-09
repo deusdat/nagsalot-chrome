@@ -1,0 +1,1 @@
+nagsalot.content.init();
