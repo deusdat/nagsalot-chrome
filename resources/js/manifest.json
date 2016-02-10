@@ -1,5 +1,5 @@
 {
-  "name": "nagsalot",
+  "name": "Nags-a-lot",
   "version": "0.0.1",
   "browser_action": {
       "default_title": "Show the popup",
@@ -15,6 +15,9 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
+  "permissions": [
+          "tabs"
+        ],
  "content_scripts": [
     {
       "matches": ["*://*/*"],

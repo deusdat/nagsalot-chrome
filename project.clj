@@ -4,9 +4,15 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2156"]
                  [org.clojure/core.async "0.1.242.0-44b1e3-alpha"]
-                 [khroma "0.0.2"]
-                 [prismatic/dommy "0.1.2"]]
+                 [khroma "0.3.0"]
+                 [prismatic/dommy "1.1.0"]]
   :source-paths ["src"]
+  
+  :chromebuild {:resource-paths ["resources/js" 
+                                                                        "resources/html" 
+                                                                        "resources/images"
+                                                                        "resources/css"]
+                                  :target-path "target/unpacked"}
   :profiles {:dev
              {:plugins [[com.cemerick/austin "0.1.3"]
                         [lein-cljsbuild "1.0.1"]

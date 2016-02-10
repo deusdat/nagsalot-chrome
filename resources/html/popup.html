@@ -1,3 +1,53 @@
-<script type="text/javascript" src="nagsalot.js"></script>
-<script type="text/javascript" src="popup.js"></script>
-A wild nagsalot appears
+<!doctype html>
+<html>
+<head>
+<style>
+html {
+	min-width: 450px
+}
+</style>
+<link rel="stylesheet" type="text/css" href="skeleton.css"
+	media="screen">
+<link rel="stylesheet" type="text/css" href="normalize.css"
+	media="screen">
+</head>
+<body>
+	<form>
+    <div class="container">
+            <div class="row">
+                <div class="eleven columns">
+                    <label for="user-name">Your name</label>
+                    <input class="u-full-width" type="text" placeholder="Stanley Tucci" id="user-name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="eleven columns">
+	                    <button id="approve-site" class="u-full-width" style="background-color: #EA80FC">Approve Site</button>
+	                    <button id="block-site" class="u-full-width" style="background-color: #2196F3">Block Site</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label for="approved-sites">Approved Sites</label>
+                   <textarea rows="8" id="approved-sites" class="u-full-width"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label for="blocked-sites">Blocked Sites</label>
+                   <textarea rows="8" id="blocked-sites" class="u-full-width"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <button id="approve-site" class="u-full-width" style="background-color: #4CAF50">Save</button>
+                    <button id="block-site" class="u-full-width" style="background-color: #FFE0B2">Cancel</button>
+                </div>
+            </div>
+    </div>
+	</form>
+	<script type="text/javascript" src="nagsalot.js"></script>
+	<script type="text/javascript" src="popup.js"></script>
+</body>
+</html>
+
