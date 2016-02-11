@@ -2,6 +2,7 @@
   (:require [khroma.runtime :as runtime]
             [khroma.log :as console]
             [cljs.core.async :refer [>! <!]]
+            [nagsalot.data :as data]
             [dommy.core :as dommy :refer-macros [sel1]]
             [khroma.tabs :refer [get-active]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
@@ -17,30 +18,29 @@
   [id reaction]
   (dommy/listen! (sel1 id) :click (react-to-current-tab reaction)))
 
+(defn update-list [url list]
+  (let [config-ch (data/load)] 
+    (data/save (update-in {} [list] conj url))
+    (console/log "Got past config read")))
+
 (defn add-site-bind []
   (button-react-to-tab 
     :#approve-site 
     (fn [tab] 
-      (js/alert (str "You want to approve " (:url tab))))))
+      (update-list (:url tab)  :approved))))
 
 (defn block-site-bind []
   (button-react-to-tab 
     :#block-site 
-    (fn [tab] 
-      (js/alert (str "You want to block " (:url tab))))))
+   (fn [tab] 
+      (update-list (:url tab)  :blocked))))
 
-(defn save-bind[]
-  )
-
-(defn cancel-bind[]
-  )
+(defn bind[]
+  (add-site-bind)
+  (block-site-bind ))
 
 (defn init []
-  (add-site-bind)
-  (block-site-bind )
-  (save-bind)
-  (cancel-bind)
-  
+  (bind)
   (let [bg (runtime/connect)]
     (go (>! bg :lol-i-am-a-popup)
         (console/log "Background said: " (<! bg)))))
