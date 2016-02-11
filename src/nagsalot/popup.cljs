@@ -7,6 +7,8 @@
             [khroma.tabs :refer [get-active]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
+(def domain-regex #"^(?:https?://)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)")
+
 (defn react-to-current-tab [reaction]
   (fn[e] 
     (let [tab (get-active)]
@@ -18,22 +20,33 @@
   [id reaction]
   (dommy/listen! (sel1 id) :click (react-to-current-tab reaction)))
 
-(defn update-list [url list]
+(defn mirror [list]
+  (if (= :approved list) :blocked :approved))
+
+(defn update-list [domain list]
   (let [config-ch (data/load)] 
-    (data/save (update-in {} [list] conj url))
-    (console/log "Got past config read")))
+    (go 
+      (let [mirrored (mirror list)
+            config (<! config-ch)]
+        (-> config
+          (update-in [list] conj (data/entry domain))
+          (update-in [mirrored] #(remove (fn [v] (= (:url v) %2)) %1) domain)
+          (data/save))))))
+
+(defn domain [url]
+  (second (re-find domain-regex url)))
 
 (defn add-site-bind []
   (button-react-to-tab 
     :#approve-site 
     (fn [tab] 
-      (update-list (:url tab)  :approved))))
+      (update-list (domain (:url tab)) :approved))))
 
 (defn block-site-bind []
   (button-react-to-tab 
     :#block-site 
    (fn [tab] 
-      (update-list (:url tab)  :blocked))))
+      (update-list (domain (:url tab)) :blocked))))
 
 (defn bind[]
   (add-site-bind)

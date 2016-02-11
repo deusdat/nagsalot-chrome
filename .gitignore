@@ -4,3 +4,6 @@
 .project
 target/
 .settings/
+.DS_Store
+Notes*
+.nrepl-port
