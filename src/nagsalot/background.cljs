@@ -4,8 +4,6 @@
             [cljs.core.async :refer [>! <!]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
-(def before-request js/chrome.webRequest.onBeforeRequest)
-
 (def block-list (atom [{:url "google.com", :expr 100000}]))
 
 (defn should-block? [url]
@@ -20,7 +18,7 @@
           {:cancel false}))))
 
 (defn bind-to-request []
-  (.addListener before-request 
+  (.addListener js/chrome.webRequest.onBeforeRequest 
                 blocking-fn
                 (clj->js {:urls ["<all_urls>"]})
                 (clj->js ["blocking"])))
