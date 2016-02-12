@@ -1,0 +1,29 @@
+#nags-a-lot-modal {
+   position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background:rgba(255,255,255,0.5);
+}
+
+
+#nags-a-lot-content {
+	width: 250px;
+	height: 250px;
+	margin: auto;
+	color: black;
+	background-color: white;
+	border: 3px solid #73AD21;
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}

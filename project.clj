@@ -9,10 +9,10 @@
   :source-paths ["src"]
   
   :chromebuild {:resource-paths ["resources/js" 
-                                                                        "resources/html" 
-                                                                        "resources/images"
-                                                                        "resources/css"]
-                                  :target-path "target/unpacked"}
+                                 "resources/html" 
+                                 "resources/images"
+                                 "resources/css"]
+                 :target-path "target/unpacked"}
   :profiles {:dev
              {:plugins [[com.cemerick/austin "0.1.3"]
                         [lein-cljsbuild "1.0.1"]
