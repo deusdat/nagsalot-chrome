@@ -32,7 +32,8 @@
         (-> config
           (update-in [list] conj (data/entry domain))
           (update-in [mirrored] #(remove (fn [v] (= (:url v) %2)) %1) domain)
-          (data/save))))))
+          (data/save)))))
+  (.close js/window))
 
 (defn domain [url]
   (second (re-find domain-regex url)))
