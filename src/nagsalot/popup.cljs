@@ -25,6 +25,7 @@
 
 (defn update-list [domain list]
   (let [config-ch (data/load)] 
+    (.sendMessage js/chrome.runtime (clj->js {:url domain, :action list}))
     (go 
       (let [mirrored (mirror list)
             config (<! config-ch)]
@@ -46,14 +47,15 @@
   (button-react-to-tab 
     :#block-site 
    (fn [tab] 
-      (update-list (domain (:url tab)) :blocked))))
+     (let [url (:url tab)]
+       (update-list (domain url) :blocked)))))
 
 (defn bind[]
   (add-site-bind)
   (block-site-bind ))
 
 (defn init []
-  (bind)
   (let [bg (runtime/connect)]
     (go (>! bg :lol-i-am-a-popup)
+        (bind)
         (console/log "Background said: " (<! bg)))))
