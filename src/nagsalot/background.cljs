@@ -5,8 +5,7 @@
             [nagsalot.data :as data])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
-(def block-list (atom [{:url "facebook.com", :expr 100000},
-                       {:url "news.ycombinator.com"}]))
+(def block-list (atom (:blocked (data/load))))
 
 (defn should-block? [url]
   (some #(> (.indexOf url (:url %)) -1)
