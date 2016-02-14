@@ -17,10 +17,10 @@
   },
   "permissions": [
           "tabs",
+          "storage",
           "webRequestBlocking",
           "webRequest",
-          "*://*/*",
-          "storage"
+          "*://*/*"
         ],
  "content_scripts": [
     {

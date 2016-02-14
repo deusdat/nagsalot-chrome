@@ -1,11 +1,11 @@
 (ns nagsalot.background
   (:require [khroma.log :as console]
             [khroma.runtime :as runtime]
-            [cljs.core.async :refer [>! <!]]
+            [cljs.core.async :refer [>! <! take!]]
             [nagsalot.data :as data])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
-(def block-list (atom (:blocked (data/load))))
+(def block-list (atom []))
 
 (defn should-block? [url]
   (some #(> (.indexOf url (:url %)) -1)
@@ -32,6 +32,10 @@
                         (remove #(= url (:url %)) list)))))
 
 (defn init []
+  (go
+    (let [list (<! (data/load))]
+      (console/log "blocked list " list)
+      (swap! block-list #(:blocked list))))
   (.addListener js/chrome.runtime.onMessage 
     (fn [r s]
       (console/log "got " r " " s)

@@ -29,11 +29,13 @@
     (go 
       (let [mirrored (mirror list)
             config (<! config-ch)]
+        (console/log "about to modify " config)
         (-> config
           (update-in [list] conj (data/entry domain))
           (update-in [mirrored] #(remove (fn [v] (= (:url v) %2)) %1) domain)
-          (data/save)))))
-  (.close js/window))
+          (data/save))
+        ;;(.close js/window)
+        ))))
 
 (defn domain [url]
   (second (re-find domain-regex url)))
