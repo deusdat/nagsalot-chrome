@@ -17,12 +17,16 @@
   (-> (sel1 :body)
       (dommy/remove! (sel1 (str "#" modal-id)))))
 
+(defn decline []
+  (set! js/window.location.href (js/chrome.extension.getURL "opt-out.html")))
+
 (def yes-button (-> (dommy/create-element "button")
                     (dommy/set-text! "Yes")
                     (dommy/listen! :click allow)))
 
 (def no-button (-> (dommy/create-element "button")
-                    (dommy/set-text! "No")))
+                    (dommy/set-text! "No")
+                    (dommy/listen! :click decline)))
 
 (def button-wrapper (-> (dommy/create-element "div")
                         (dommy/append! yes-button)
