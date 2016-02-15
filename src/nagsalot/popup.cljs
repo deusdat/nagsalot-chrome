@@ -34,7 +34,7 @@
           (update-in [list] conj (data/entry domain))
           (update-in [mirrored] #(remove (fn [v] (= (:url v) %2)) %1) domain)
           (data/save))
-        ;;(.close js/window)
+        (.close js/window)
         ))))
 
 (defn domain [url]

@@ -3,6 +3,7 @@
             [khroma.log :as console]
             [cljs.core.async :refer [>! <!]]
             [dommy.utils :as utils]
+            [nagsalot.data :as data]
             [dommy.core :as dommy])
   (:require-macros [cljs.core.async.macros :refer [go]]
                    [dommy.core :refer [sel sel1]]))
@@ -11,6 +12,8 @@
 
 (defn allow []
   (console/log "Attempting to hide the modal")
+  (-> (sel1 :html)
+      (dommy/remove-class! :stop-scrolling))
   (-> (sel1 :body)
       (dommy/remove! (sel1 (str "#" modal-id)))))
 
@@ -34,11 +37,22 @@
                (dommy/set-attr! :id modal-id)
                (dommy/append! modal-content)))
 
+(defn should-inquire? [approved-list]
+  (not (some #(re-matches (re-pattern (str "(.*)" (:url %) "(.*)")) 
+                          document.location.href) 
+             approved-list)))
+
+(defn attach-modal []
+  (go (let [config (<! (data/load))
+           approved-list (:approved config)]
+        (when (should-inquire? approved-list)
+          (-> (sel1 :html)
+            (dommy/add-class! :stop-scrolling))
+          (-> (sel1 :body)
+            (dommy/append! modal))))))
+
 (defn init []
   (let [bg (runtime/connect)]
     (go (>! bg :lol-i-am-a-content-script)
         (console/log "Background said: " (<! bg))))
-  (console/log modal)
-  (-> (sel1 :body)
-      (dommy/append! modal))
-  (console/log "Hello from the content script"))
+  (attach-modal))

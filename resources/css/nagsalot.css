@@ -9,6 +9,8 @@
     width: 100%;
     height: 100%;
     background:rgba(255,255,255,0.5);
+
+    z-index: 1030;
 }
 
 
@@ -19,11 +21,17 @@
 	color: black;
 	background-color: white;
 	border: 3px solid #73AD21;
-	position: absolute;
+	position: fixed;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
 
     margin: auto;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+  position: absolute; width: 100%; height: 100%; overflow-y: scroll
 }
