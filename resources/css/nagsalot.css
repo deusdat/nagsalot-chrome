@@ -76,3 +76,18 @@
 	position:relative;
 	top:1px;
 }
+
+.row > a {
+	text-decoration: none;
+	color: black;
+}
+
+.nags-a-lot-popup-button {
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin-top: 5px;
+    font: 1.5em;
+    padding-left: 20px;
+}

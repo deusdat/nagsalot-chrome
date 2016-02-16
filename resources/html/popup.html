@@ -1,31 +1,35 @@
 <!doctype html>
 <html>
 <head>
-<style>
-</style>
-<link rel="stylesheet" type="text/css" href="skeleton.css"
-	media="screen">
-<link rel="stylesheet" type="text/css" href="normalize.css"
-	media="screen">
+  <style>
+  </style>
+  <link rel="stylesheet" type="text/css" href="nagsalot.css" media="screen">
 </head>
 <body>
 	<form>
-    <div class="container">
-            <div class="row">
-                <div class="eleven columns">
-	                    <button id="approve-site" class="u-full-width" style="background-color: #EA80FC">Approve Site</button>
-	                    <button id="block-site" class="u-full-width" style="background-color: #2196F3">Block Site</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="eleven columns">
-                        <a href="settings.html">Settings</a>
-                </div>
-            </div>
+    <div class="row">
+      <div>
+        <div style="width: 150px">
+          <div id="approve-site" class="nags-a-lot-popup-button">
+            <img style="vertical-align:middle" src="ic_visibility_black_24dp_1x.png">
+            Approve Site?
+          </div>
+          <div id="block-site" class="nags-a-lot-popup-button">
+            <img style="vertical-align:middle" src="ic_visibility_off_black_24dp_1x.png">
+            Block Site
+          </div>
+        </div>
+      </div>
     </div>
-	</form>
-	<script type="text/javascript" src="nagsalot.js"></script>
-	<script type="text/javascript" src="popup.js"></script>
+    <div class="row">
+      <div class="nags-a-lot-popup-button">
+        <img style="vertical-align:middle" src="ic_menu_black_24dp_1x.png">
+        <a href="settings.html">Settings</a>
+      </div>
+    </div>
+  </form>
+  <script type="text/javascript" src="nagsalot.js"></script>
+  <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
 
