@@ -7,7 +7,6 @@
             [khroma.tabs :refer [get-active]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
-(def domain-regex #"^(?:https?://)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)")
 
 (defn react-to-current-tab [reaction]
   (fn[e] 
@@ -20,38 +19,28 @@
   [id reaction]
   (dommy/listen! (sel1 id) :click (react-to-current-tab reaction)))
 
-(defn mirror [list]
-  (if (= :approved list) :blocked :approved))
 
 (defn update-list [domain list]
   (let [config-ch (data/load)] 
     (.sendMessage js/chrome.runtime (clj->js {:url domain, :action list}))
     (go 
-      (let [mirrored (mirror list)
-            config (<! config-ch)]
-        (console/log "about to modify " config)
-        (-> config
-          (update-in [list] conj (data/entry domain))
-          (update-in [mirrored] #(remove (fn [v] (= (:url v) %2)) %1) domain)
-          (data/save))
-        (.close js/window)
-        ))))
+      (let [config (<! config-ch)]
+        (data/update-lists config domain list)
+        (.close js/window)))))
 
-(defn domain [url]
-  (second (re-find domain-regex url)))
 
 (defn add-site-bind []
   (button-react-to-tab 
     :#approve-site 
     (fn [tab] 
-      (update-list (domain (:url tab)) :approved))))
+      (update-list (data/domain (:url tab)) :approved))))
 
 (defn block-site-bind []
   (button-react-to-tab 
     :#block-site 
    (fn [tab] 
      (let [url (:url tab)]
-       (update-list (domain url) :blocked)))))
+       (update-list (data/domain url) :blocked)))))
 
 (defn bind[]
   (add-site-bind)
