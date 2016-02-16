@@ -29,18 +29,23 @@
         (.close js/window)))))
 
 
+(defn reload [tab]
+   (.reload js/chrome.tabs (:id tab)))
+
 (defn add-site-bind []
   (button-react-to-tab 
     :#approve-site 
     (fn [tab] 
-      (update-list (data/domain (:url tab)) :approved))))
+      (update-list (data/domain (:url tab)) :approved)
+      (reload tab))))
 
 (defn block-site-bind []
   (button-react-to-tab 
     :#block-site 
    (fn [tab] 
      (let [url (:url tab)]
-       (update-list (data/domain url) :blocked)))))
+       (update-list (data/domain url) :blocked)
+       (reload tab)))))
 
 (defn bind[]
   (add-site-bind)
