@@ -86,8 +86,51 @@
 	-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid #1F497D;
     margin-top: 5px;
     font: 1.5em;
     padding-left: 20px;
+}
+
+.container  label {
+	display: block;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.container input[type=text] {
+	padding-top: 4px;
+}
+
+.container img  {
+	vertical-align:middle;
+	display: inline-block;
+}
+
+.container table tr td .site-root {
+	font-size: 1.25em;
+}
+
+.container .plus-site {
+	margin-bottom: 5px;
+	display: inline-block;
+} 
+
+.nags-a-lot fieldset {
+    font-family: sans-serif;
+    border: 2px solid #1F497D;
+    background: #ddd;
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.nags-a-lot fieldset legend {
+    background: #1F497D;
+    color: #fff;
+    padding: 5px 10px ;
+    font-size: 1.1em;
+    border-radius: 2px;
+    box-shadow: 0 0 0 5px #ddd;
+    margin-left: 5px;
 }

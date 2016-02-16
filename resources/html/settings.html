@@ -1,31 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="skeleton.css"
-	media="screen">
-<link rel="stylesheet" type="text/css" href="normalize.css"
+<link rel="stylesheet" type="text/css" href="nagsalot.css"
 	media="screen">
 </head>
-<body>
-  <div class="container" id="">
-      <form>
-      	<div>
-	      	<label>Your name? </label>
-	      	<input type="text" id="user-name" placeholder="Mike Smith."></input>
-      	</div>
-      	<div>
-	      	<label>New Allowed Site</label>
-	      	<input type="text" id="allowed-site" placeholder="www.google.com"></input>
-      	</div>
-      	<div id="allowed-sites">
-      	</div>
-      	<div>
-	      	<label>New Blocked Site</label>
-	      	<input type="text" id="blocked-site" placeholder="www.cnn.com"></input>
-      	</div>
-      	<div id="blocked-sites">
-      	</div>
-      </form>
-  </div>
+<body class="nags-a-lot">
+	<div class="container" style="width: 230px">
+		<div>
+			<fieldset>
+				<legend>Personalization</legend>
+				<div>
+					<input type="text" id="user-name" placeholder="Your name here."
+						style="width: 97%"></input>
+				</div>
+			</fieldset>
+		</div>
+		<div id="approved-sites">
+			<fieldset>
+				<legend>Approved Sites</legend>
+				<div>
+					<input type="text" id="allowed-site" placeholder="www.google.com" class="addable"></input>
+					<img src="ic_add_black_24dp_1x.png" class="plus-site" id="nags-a-lot-approve-site" data-list="approved">
+				</div>
+				<table id="approved-table">
+					<tr>
+						<td class="site-root">google.com</td>
+						<td>
+						<img src="ic_clear_black_24dp_1x.png" 
+						          data-url="google.com" data-list="approved" />
+					</tr>
+					<tr>
+						<td class="site-root">facebook.com</td>
+						<td><img src="ic_clear_black_24dp_1x.png" />
+					</tr>
+				</table>
+			</fieldset>
+		</div>
+		<div id="blocked-sites">
+			<fieldset>
+				<legend>Blocked Sites:</legend>
+				<div>
+					<input type="text" id="blocked-site" placeholder="www.cnn.com" class="addable"></input>
+					<img src="ic_add_black_24dp_1x.png" class="plus-site" id="nags-a-lot-block-site" data-list="blocked">
+				</div>
+				<table id="blocked-table">
+					<tr>
+						<td class="site-root">reddit.com/r/funny</td>
+						<td><img src="ic_clear_black_24dp_1x.png" />
+					</tr>
+				</table>
+			</fieldset>
+		</div>
+		<div style="text-align: center; margin-top: 5px">
+			<div id="nags-a-lot-settings-save" style="display:inline-block">
+			<span><img src="ic_save_black_24dp_1x.png" /> Save</span></div>
+			<div id="nags-a-lot-settings-cancel" style="display:inline-block">
+				<span> <img src="ic_clear_black_24dp_1x.png"
+					style="padding-left: 15px" /> Cancel
+				</span>
+			</div>
+		</div>
+	</div>
+	
+<script type="text/javascript" src="nagsalot.js"></script>
+<script type="text/javascript" src="settings.js"></script>
 </body>
 </html>

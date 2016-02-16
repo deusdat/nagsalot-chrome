@@ -31,7 +31,8 @@
     }
   ],
   "web_accessible_resources" : [
-  	"opt-out.html"
+  	"opt-out.html",
+  	"nope.html"
   ],
   "chrome_url_overrides": {
     "newtab": "new-tab.html"
