@@ -16,11 +16,13 @@
 (defn add-from-ui! [e]
   (let [ ev-elem (.-target e)
         k-prop (keyword (dommy/attr ev-elem :data-list))
+        mirrored-prop (data/mirror k-prop)
         text-box (sel1 (dommy/parent ev-elem) :.addable)
         url-value (dommy/value text-box)]
     (if url-value 
       (do 
         (update-form k-prop (conj (get @form k-prop) (data/entry url-value)))
+         (update-form mirrored-prop (filter #(not= (:url %) url-value) (get @form mirrored-prop)))
         (.sendMessage js/chrome.runtime (clj->js {:url url-value, :action k-prop}))
         (dommy/set-value! text-box "")
         (bind-form!)) nil)))
@@ -32,7 +34,9 @@
 
 (defn build-url-column! [list-name url]
   (-> (dommy/create-element :td)
-    (dommy/append! (dommy/create-text-node url))))
+    (dommy/append! (-> (dommy/create-element :div)
+                                                   (dommy/set-attr! :style "overflow: auto; width:100%")
+                                                    (dommy/append! (-> (dommy/create-text-node url)))))))
 
 (defn remove-from-ui! [e]
   (let [elem (.-target e)
