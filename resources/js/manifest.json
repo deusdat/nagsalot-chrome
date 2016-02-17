@@ -32,7 +32,8 @@
   ],
   "web_accessible_resources" : [
   	"opt-out.html",
-  	"nope.html"
+  	"nope.html",
+  	"top-hat1-small.png"
   ],
   "chrome_url_overrides": {
     "newtab": "new-tab.html"

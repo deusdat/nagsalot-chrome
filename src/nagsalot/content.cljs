@@ -26,6 +26,10 @@
 (defn decline []
   (set! js/window.location.href (js/chrome.extension.getURL "opt-out.html")))
 
+(def top-hat (-> (dommy/create-element :img)
+              (dommy/set-attr! :src (js/chrome.extension.getURL "top-hat1-small.png") 
+                                                      :style "margin: auto; display: block; width: auto")))
+
 (def yes-button (-> (dommy/create-element "button")
                   (dommy/set-text! "Yes")
                   (dommy/add-class! :nags-a-lot-button)
@@ -41,8 +45,11 @@
                       (dommy/append! no-button)))
 
 (def modal-content (-> (dommy/create-element "div")
-                     (dommy/set-attr! :id "nags-a-lot-content")
-                     (dommy/set-text! "Do you really need to go here?")
+                     (dommy/set-attr! :id "nags-a-lot-content"
+                                      :style "verticle-align: middle")
+                     (dommy/append! top-hat)
+                     (dommy/append! (->  (dommy/create-element :h2)
+                                      (dommy/set-text! "Do you really need to go here?")))
                      (dommy/append! button-wrapper)))
 
 (def modal (-> (dommy/create-element "div")
