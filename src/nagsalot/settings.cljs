@@ -11,7 +11,7 @@
 
 (defn update-form [prop value]
   (reset! form (assoc @form prop value))
-  (console/log "new form " @form))
+ (data/save @form))
 
 (defn add-from-ui! [e]
   (let [ ev-elem (.-target e)
@@ -21,6 +21,7 @@
     (if url-value 
       (do 
         (update-form k-prop (conj (get @form k-prop) (data/entry url-value)))
+        (.sendMessage js/chrome.runtime (clj->js {:url url-value, :action k-prop}))
         (dommy/set-value! text-box "")
         (bind-form!)) nil)))
 
@@ -75,14 +76,6 @@
       (dommy/set-value! (:name config ""))
       (dommy/listen! :blur #(update-form :name (dommy/value name-elem))))))
 
-(defn bind-cancel!  []
-  (-> (sel1 :#nags-a-lot-settings-cancel)
-    (dommy/listen! :click #(.close js/window))))
-
-(defn bind-save! []
-  (-> (sel1 :#nags-a-lot-settings-save)
-    (dommy/listen! :click #(do (data/save @form) (.close js/window)))))
-
 (defn bind-form! []
   (go 
     (-> (or @form (<! (data/load)))
@@ -98,6 +91,4 @@
   (bind-form!))
 
 (defn init[] 
-  (bind-form! )
-  (bind-cancel!)
-  (bind-save!))
+  (bind-form! ))
