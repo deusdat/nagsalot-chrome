@@ -30,13 +30,15 @@
               (dommy/set-attr! :src (js/chrome.extension.getURL "top-hat1-small.png") 
                                                       :style "margin: auto; display: block; width: auto")))
 
-(def yes-button (-> (dommy/create-element "button")
+(def yes-button (-> (dommy/create-element :div)
                   (dommy/set-text! "Yes")
+                  (dommy/set-attr! :style "display: inline-block; width: 48%; background-color: white; text-align: center")
                   (dommy/add-class! :nags-a-lot-button)
                   (dommy/listen! :click allow)))
 
-(def no-button (-> (dommy/create-element "button")
+(def no-button (-> (dommy/create-element :div)
                  (dommy/set-text! "No")
+                  (dommy/set-attr! :style "display: inline-block; width: 48%; background-color: white; text-align: center")
                  (dommy/add-class! :nags-a-lot-button)
                  (dommy/listen! :click decline)))
 
