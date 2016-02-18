@@ -33,6 +33,7 @@
   "web_accessible_resources" : [
   	"opt-out.html",
   	"nope.html",
+  	"nope.png",
   	"top-hat1-small.png"
   ],
   "chrome_url_overrides": {

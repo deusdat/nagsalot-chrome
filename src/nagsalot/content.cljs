@@ -28,7 +28,7 @@
 
 (def top-hat (-> (dommy/create-element :img)
               (dommy/set-attr! :src (js/chrome.extension.getURL "top-hat1-small.png") 
-                                                      :style "margin: auto; display: block; width: auto")))
+                                                      :style "margin: auto; display: block; width: 204px")))
 
 (def yes-button (-> (dommy/create-element :div)
                   (dommy/set-text! "Yes")
@@ -51,7 +51,7 @@
                                       :style "verticle-align: middle")
                      (dommy/append! top-hat)
                      (dommy/append! (->  (dommy/create-element :h2)
-                                      (dommy/set-text! "Do you really need to go here?")))
+                                      (dommy/set-text! "Really?")))
                      (dommy/append! button-wrapper)))
 
 (def modal (-> (dommy/create-element "div")
