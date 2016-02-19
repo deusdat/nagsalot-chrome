@@ -51,7 +51,7 @@
   (add-site-bind)
   (block-site-bind ))
 
-(defn init []
+(defn ^:export  init []
   (let [bg (runtime/connect)]
     (go (>! bg :lol-i-am-a-popup)
         (bind)

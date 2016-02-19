@@ -94,5 +94,5 @@
     (update-form list))
   (bind-form!))
 
-(defn init[] 
+(defn ^:export init[] 
   (bind-form! ))
