@@ -1,8 +1,8 @@
 {
   "name": "Nags-a-lot",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "browser_action": {
-      "default_title": "Show the popup",
+      "default_title": "Manage this site",
       "default_popup": "popup.html",
       "default_icon": {
         "19": "icon19.png",
@@ -10,6 +10,7 @@
       }
 
   },
+  "description": "An extention that nags you while you surf. It makes sure you are intentional about your web useage.",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
