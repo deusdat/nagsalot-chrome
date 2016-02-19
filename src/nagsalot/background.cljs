@@ -31,7 +31,7 @@
     (swap! block-list (fn [list]
                         (remove #(= url (:url %)) list)))))
 
-(defn init []
+(defn ^:export init []
   (go
     (let [list (<! (data/load))]
       (console/log "blocked list " list)

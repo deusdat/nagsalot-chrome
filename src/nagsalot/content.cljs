@@ -72,7 +72,7 @@
           (-> (sel1 :body)
             (dommy/append! modal))))))
 
-(defn init []
+(defn ^:export  init []
   (let [bg (runtime/connect)]
     (go (>! bg :lol-i-am-a-content-script)
         (console/log "Background said: " (<! bg))))
