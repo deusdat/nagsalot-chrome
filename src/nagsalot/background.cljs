@@ -7,8 +7,28 @@
 
 (def block-list (atom []))
 
+(defn prepend-wild [url-str]
+  (if (.startsWith url-str "(.*)")
+    url-str
+    (str "(.*)" url-str)))
+
+(defn append-wild [url-str]
+  (if (.endsWith url-str "(.*)")
+    url-str
+    (str url-str "(.*)" )))
+(defn pass-print [ob]
+  (console/log "obj was " ob)
+  ob)
+
+(defn create-pattern [url]
+ (-> (:url url)
+  (prepend-wild)
+  (append-wild)
+  (pass-print)
+  (re-pattern)))
+
 (defn should-block? [url]
-  (some #(> (.indexOf url (:url %)) -1)
+  (some #(re-matches (create-pattern %) url)
         @block-list))
 
 (defn blocking-fn [details]
