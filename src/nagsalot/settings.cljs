@@ -11,7 +11,7 @@
 
 (defn update-form [prop value]
   (reset! form (assoc @form prop value))
- (data/save @form))
+  (data/save @form))
 
 (defn add-from-ui! [e]
   (let [ ev-elem (.-target e)
@@ -22,7 +22,7 @@
     (if url-value 
       (do 
         (update-form k-prop (conj (get @form k-prop) (data/entry url-value)))
-         (update-form mirrored-prop (filter #(not= (:url %) url-value) (get @form mirrored-prop)))
+        (update-form mirrored-prop (filter #(not= (:url %) url-value) (get @form mirrored-prop)))
         (.sendMessage js/chrome.runtime (clj->js {:url url-value, :action k-prop}))
         (dommy/set-value! text-box "")
         (bind-form!)) nil)))
@@ -35,25 +35,26 @@
 (defn build-url-column! [list-name url]
   (-> (dommy/create-element :td)
     (dommy/append! (-> (dommy/create-element :div)
-                                                   (dommy/set-attr! :style "overflow: auto; width:100%")
-                                                    (dommy/append! (-> (dommy/create-text-node url)))))))
+                     (dommy/set-attr! :style "overflow: auto; width:100%")
+                     (dommy/append! (-> (dommy/create-text-node url)))))))
 
 (defn remove-from-ui! [e]
   (let [elem (.-target e)
-             list-attr (keyword (dommy/attr elem :data-list))
-             url-attr (dommy/attr elem :data-url)
-             l (get @form list-attr)]
+        list-attr (keyword (dommy/attr elem :data-list))
+        url-attr (dommy/attr elem :data-url)
+        l (get @form list-attr)]
     (update-form list-attr (filter #(not= (:url %) url-attr) l))
+    (.sendMessage js/chrome.runtime (clj->js {:url url-attr, :action "approve"}))
     (bind-form!)))
 
 (defn build-url-edit! [list-name url]
   (-> (dommy/create-element :td)
-         (dommy/append!  (-> (dommy/create-element :img)
-                                                         (dommy/unlisten! :click remove-from-ui!)
-                                                         (dommy/listen! :click remove-from-ui!)
-                                                         (dommy/set-attr! :src "ic_clear_black_24dp_1x.png" 
-                                                                                                 :data-url url
-                                                                                                 :data-list (name list-name))))))
+    (dommy/append!  (-> (dommy/create-element :img)
+                      (dommy/unlisten! :click remove-from-ui!)
+                      (dommy/listen! :click remove-from-ui!)
+                      (dommy/set-attr! :src "ic_clear_black_24dp_1x.png" 
+                                       :data-url url
+                                       :data-list (name list-name))))))
 
 (defn build-row! [list-name url]
   (-> (dommy/create-element :tr)

@@ -1,6 +1,5 @@
 (ns nagsalot.background
-  (:require [khroma.log :as console]
-            [khroma.runtime :as runtime]
+  (:require [khroma.runtime :as runtime]
             [cljs.core.async :refer [>! <! take!]]
             [nagsalot.data :as data])
   (:require-macros [cljs.core.async.macros :refer [go]]))
@@ -16,16 +15,12 @@
   (if (.endsWith url-str "(.*)")
     url-str
     (str url-str "(.*)" )))
-(defn pass-print [ob]
-  (console/log "obj was " ob)
-  ob)
 
 (defn create-pattern [url]
- (-> (:url url)
-  (prepend-wild)
-  (append-wild)
-  (pass-print)
-  (re-pattern)))
+  (-> (:url url)
+    (prepend-wild)
+    (append-wild)
+    (re-pattern)))
 
 (defn should-block? [url]
   (some #(re-matches (create-pattern %) url)
@@ -54,17 +49,12 @@
 (defn ^:export init []
   (go
     (let [list (<! (data/load))]
-      (console/log "blocked list " list)
       (swap! block-list #(:blocked list))))
   (.addListener js/chrome.runtime.onMessage 
     (fn [r s]
-      (console/log "got " r " " s)
       (let [as-map (js->clj r :keywordize-keys true)
             url (:url as-map)
             action (:action as-map)]
-        (console/log "action was " action)
-        (react-to-allowance url action)
-        (console/log "list is " @block-list)))))
-
+        (react-to-allowance url action)))))
 
 (bind-to-request)
