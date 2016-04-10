@@ -37,9 +37,6 @@
   	"nope.png",
   	"top-hat1-small.png"
   ],
-  "chrome_url_overrides": {
-    "newtab": "new-tab.html"
-  },
   "background": {
     "scripts": ["nagsalot.js", "background.js"],
     "persistent": true
