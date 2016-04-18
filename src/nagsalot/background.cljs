@@ -58,8 +58,8 @@
   (.addListener js/chrome.runtime.onMessage 
     (fn [r s]
       (let [as-map (js->clj r :keywordize-keys true)
-            url (get as-map "url")
-            action (get as-map "action")]
+            url (get as-map :url)
+            action (get as-map :action)]
         (log "Got  "  as-map)
         (react-to-allowance url action)))))
 
